@@ -25,13 +25,24 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55 } },
 }
 
+const glassCard: React.CSSProperties = {
+  position: 'absolute',
+  background: 'rgba(255,255,255,0.88)',
+  backdropFilter: 'blur(14px)',
+  WebkitBackdropFilter: 'blur(14px)',
+  border: '1px solid rgba(255,255,255,0.7)',
+  borderRadius: 18,
+  padding: '16px 22px',
+  boxShadow: '0 12px 36px rgba(30,27,58,0.18)',
+}
+
 export default function Home() {
   return (
     <>
       <Navbar />
       <main>
         {/* HERO */}
-        <section style={{ background: 'var(--bg)', padding: 'clamp(48px,8vw,88px) 24px clamp(48px,6vw,72px)', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ background: 'var(--bg)', padding: 'clamp(48px,8vw,88px) 24px clamp(56px,7vw,80px)', position: 'relative', overflow: 'hidden' }}>
           <motion.div animate={{ y: [0, -20, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
             style={{ position: 'absolute', top: -100, right: -100, width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle,rgba(196,184,240,0.4) 0%,transparent 65%)', pointerEvents: 'none' }} />
           <motion.div animate={{ y: [0, 16, 0] }} transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
@@ -63,23 +74,40 @@ export default function Home() {
                 </motion.div>
               </div>
 
-              {/* HERO VISUAL with real image */}
-              <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.2 }}
-                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <div style={{ width: 'clamp(240px,32vw,320px)', height: 'clamp(240px,32vw,320px)', borderRadius: 28, position: 'relative', overflow: 'visible' }}>
-                  <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80" alt="Accounting and compliance"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 28, border: '1px solid rgba(107,92,231,0.15)' }} />
-                  <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                    style={{ position: 'absolute', top: -16, right: -16, background: '#fff', border: '1px solid rgba(30,27,58,0.09)', borderRadius: 16, padding: '12px 18px', boxShadow: '0 8px 28px rgba(30,27,58,0.14)' }}>
-                    <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--navy)' }}>500+</div>
-                    <div style={{ fontSize: 11, color: 'var(--text3)' }}>Clients served</div>
-                  </motion.div>
-                  <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                    style={{ position: 'absolute', bottom: -16, left: -16, background: '#fff', border: '1px solid rgba(30,27,58,0.09)', borderRadius: 16, padding: '12px 18px', boxShadow: '0 8px 28px rgba(30,27,58,0.14)' }}>
-                    <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--navy)' }}>Pan-India</div>
-                    <div style={{ fontSize: 11, color: 'var(--text3)' }}>Network coverage</div>
-                  </motion.div>
+              {/* UPGRADED HERO VISUAL — large, bright, glass cards */}
+              <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }}
+                style={{ position: 'relative', width: '100%' }}>
+                <div style={{ width: '100%', height: 'clamp(320px,36vw,440px)', borderRadius: 32, overflow: 'hidden', position: 'relative', boxShadow: '0 24px 64px rgba(30,27,58,0.18)' }}>
+                  <motion.img
+                    src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1400&q=85"
+                    alt="BENIEVA compliance professionals"
+                    initial={{ scale: 1.12 }} animate={{ scale: 1 }} transition={{ duration: 1.2, ease: 'easeOut' }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {/* brand duotone overlay */}
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(160deg, rgba(107,92,231,0.18) 0%, rgba(30,27,58,0.05) 50%, rgba(30,27,58,0.25) 100%)' }} />
                 </div>
+
+                {/* Glass stat cards */}
+                <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+                  style={{ ...glassCard, top: 22, right: -14 }}>
+                  <div style={{ fontSize: 26, fontWeight: 800, color: 'var(--navy)', letterSpacing: -0.8 }}>500+</div>
+                  <div style={{ fontSize: 12, color: 'var(--text2)', fontWeight: 600 }}>Clients served</div>
+                </motion.div>
+
+                <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+                  style={{ ...glassCard, bottom: 26, left: -14 }}>
+                  <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--navy)', letterSpacing: -0.5 }}>Pan-India</div>
+                  <div style={{ fontSize: 12, color: 'var(--text2)', fontWeight: 600 }}>Network coverage</div>
+                </motion.div>
+
+                <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1.1 }}
+                  style={{ ...glassCard, bottom: -18, right: 40, display: 'flex', alignItems: 'center', gap: 10, padding: '13px 18px' }}>
+                  <span style={{ width: 34, height: 34, borderRadius: 10, background: 'var(--lav-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>🛡️</span>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--navy)' }}>ICAI Verified</div>
+                    <div style={{ fontSize: 11, color: 'var(--text2)', fontWeight: 600 }}>Professional partners</div>
+                  </div>
+                </motion.div>
               </motion.div>
             </div>
           </div>
@@ -200,14 +228,14 @@ export default function Home() {
       </main>
       <Footer />
       <style>{`
-        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+        .hero-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
         .hero-h1 { font-size: clamp(36px,6vw,54px); font-weight: 800; line-height: 1.06; color: var(--navy); letter-spacing: -2.5px; margin-bottom: 24px; }
         .meet-top { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: start; margin-bottom: 36px; }
         .meet-cards { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 14px; }
         .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
         .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
         @media (max-width: 900px) {
-          .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+          .hero-grid { grid-template-columns: 1fr; gap: 44px; }
           .meet-top { grid-template-columns: 1fr; gap: 24px; }
           .meet-cards { grid-template-columns: 1fr; }
           .svc-grid { grid-template-columns: repeat(2, 1fr); }
